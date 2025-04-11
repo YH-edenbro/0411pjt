@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Movie, Comment
 from .forms import CreateForm, CommentForm
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     movies = Movie.objects.all()
@@ -10,6 +10,7 @@ def index(request):
     }
     return render(request, 'movies/index.html', context)
 
+@login_required
 def create(request):
     if request.method == 'POST':
         form = CreateForm(request.POST, request.FILES)
@@ -36,6 +37,7 @@ def detail(request, movie_pk):
     }
     return render(request, 'movies/detail.html', context)
 
+@login_required
 def update(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     if request.method == 'POST':
@@ -51,11 +53,13 @@ def update(request, movie_pk):
     }
     return render(request, 'movies/update.html', context)
 
+@login_required
 def delete(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     movie.delete()
     return redirect('movies:index')
 
+@login_required
 def comments_create(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     comment_form = CommentForm(request.POST)
@@ -71,6 +75,8 @@ def comments_create(request, movie_pk):
     }
     return render(request, 'movies/detail.html', context)
 
+
+@login_required
 def comments_delete(request, movie_pk, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
     comment.delete()
