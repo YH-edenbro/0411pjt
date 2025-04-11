@@ -8,3 +8,7 @@ def index(request):
         'movies':movies
     }
     return render(request, 'movies/index.html', context)
+
+def create(request):
+    if request.method == 'POST':
+        pass
