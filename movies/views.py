@@ -49,8 +49,8 @@ def delete(request, movie_pk):
     movie.delete()
     return redirect('movies:index')
 
-def comments_create(request, pk):
-    movie = Movie.objects.get(pk=pk)
+def comments_create(request, movie_pk):
+    movie = Movie.objects.get(pk=movie_pk)
     comment_form = CommentForm(request.POST)
     if comment_form.is_valid():
         comment = comment_form.save(commit=False)
