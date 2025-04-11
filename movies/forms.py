@@ -1,8 +1,6 @@
 from django import forms
 from .models import Movie, Comment
 
-
-# form1 (일반 Form 예시)
 class CreateForm(forms.ModelForm):
 
     class Meta:
