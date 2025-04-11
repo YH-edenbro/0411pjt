@@ -27,12 +27,12 @@ def create(request):
 
 def detail(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
-    comments = Comment.objects.all()
+    comments = movie.comment_set.all()
     commeent_form = CommentForm()
     context = {
         'movie':movie,
         'comment_form': commeent_form,
-        'comments': comments
+        'comments': comments,
     }
     return render(request, 'movies/detail.html', context)
 
