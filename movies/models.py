@@ -6,9 +6,9 @@ class Movie(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     GENRE_CHOICES = [
-        ('COME', 'Comedy'),
-        ('FANT', 'Fantasy'),
-        ('ROMA', 'Romance'),
+        ('Comedy', 'Comedy'),
+        ('Fantasy', 'Fantasy'),
+        ('Romance', 'Romance'),
 
     ]
     genre = models.CharField(
