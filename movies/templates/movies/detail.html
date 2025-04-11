@@ -1,39 +1,42 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<h1>DETAIL PAGE</h1>
 
-{% block content %}
-  <h1>DETAIL PAGE</h1>
+<h2>{{ movie.title }}</h2>
+<p>{{ movie.description }}</p>
+<p>장르 : {{ movie.genre }}</p>
+<p>평점 : {{ movie.score }}</p>
 
-  <h2>{{ movie.title }}</h2>
-  <p>{{ movie.description }}</p>
-  <p>장르 : {{ movie.genre }}</p>
-  <p>평점 : {{ movie.score }}</p>
+<a href="{% url 'movies:update' movie.pk %}" class="btn btn-secondary"
+  >UPDATE</a
+>
+<a href="{% url 'movies:delete' movie.pk %}" class="btn btn-danger">DELETE</a>
 
-  <a href="{% url 'movies:update' movie.pk %}" class="btn btn-secondary">UPDATE</a>
-  <a href="{% url 'movies:delete' movie.pk %}" class="btn btn-danger">DELETE</a>
+<hr />
+<h4>댓글 목록</h4>
+<ul>
+  {% for comment in comments %}
+  <li>
+    <strong>{{ comment.user.username }}</strong> - {{ comment.content }} 
+    {% if request.user == comment.user %}
+    <form
+      action="{% url 'movies:comments_delete' movie.pk comment.pk %}"
+      method="POST"
+      style="display: inline"
+    >
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+    </form>
+  {% endif %}
+  </li>
+  {% endfor %}
+</ul>
 
-  <hr/>
-  <h4>댓글 목록</h4>
-  <ul>
-    {% for comment in comments %}
-      <li>
-        <strong>{{ comment.user.username }}</strong> - {{ comment.content }}
-        {% if request.user == comment.user %}
-          <form action="{% url 'movies:comment_delete' movie.pk comment.pk %}" method="POST" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
-          </form>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+<form action="{% url 'movies:comments_create' movie.pk %}" method="POST">
+  {% csrf_token %} 
+  {{ comment_form.content.label }} {{ comment_form.content }}
+  <input type="submit" value="제출" />
+</form>
 
-  <form action="{% url 'movies:comment_create' movie.pk %}" method="POST">
-    {% csrf_token %}
-    {{ form.content.label }}:
-    {{ form.content }}
-    <input type="submit" value="제출">
-  </form>
-
-  <br />
-  <a href="{% url 'movies:index' %}" class="btn btn-primary">BACK</a>
+<br />
+<a href="{% url 'movies:index' %}" class="btn btn-primary">BACK</a>
 {% endblock %}

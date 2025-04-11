@@ -27,19 +27,24 @@ def create(request):
 
 def detail(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
+    comments = Comment.objects.all()
     commeent_form = CommentForm()
     context = {
         'movie':movie,
         'comment_form': commeent_form,
+        'comments': comments
     }
     return render(request, 'movies/detail.html', context)
 
 def update(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
-    form = CreateForm(request.POST, instance=movie)
-    if form.is_valid():
-        form.save()
-        return redirect('movies:detail', movie.pk)
+    if request.method == 'POST':
+        form = CreateForm(request.POST, instance=movie)
+        if form.is_valid():
+            form.save()
+            return redirect('movies:detail', movie.pk)
+    else:
+        form = CreateForm(instance=movie)
     context = {
         'movie': movie,
         'form': form,
@@ -56,7 +61,8 @@ def comments_create(request, movie_pk):
     comment_form = CommentForm(request.POST)
     if comment_form.is_valid():
         comment = comment_form.save(commit=False)
-        comment.movie_id = movie
+        comment.movie = movie
+        comment.user = request.user
         comment.save()
         return redirect('movies:detail', movie.pk)
     context = {
