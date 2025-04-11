@@ -6,10 +6,12 @@
 <p>장르 : {{ movie.genre }}</p>
 <p>평점 : {{ movie.score }}</p>
 
+{% if request.user == movie.user %}
 <a href="{% url 'movies:update' movie.pk %}" class="btn btn-secondary"
   >UPDATE</a
 >
 <a href="{% url 'movies:delete' movie.pk %}" class="btn btn-danger">DELETE</a>
+{% endif %}
 
 <hr />
 <h4>댓글 목록</h4>
@@ -30,13 +32,13 @@
   </li>
   {% endfor %}
 </ul>
-
+{% if user.is_authenticated %}
 <form action="{% url 'movies:comments_create' movie.pk %}" method="POST">
   {% csrf_token %} 
   {{ comment_form.content.label }} {{ comment_form.content }}
   <input type="submit" value="제출" />
 </form>
-
+{% endif %}
 <br />
 <a href="{% url 'movies:index' %}" class="btn btn-primary">BACK</a>
 {% endblock %}
