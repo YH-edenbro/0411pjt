@@ -5,7 +5,7 @@ class CreateForm(forms.ModelForm):
 
     class Meta:
         model = Movie
-        fields = ['title', 'description', 'genre', 'score']
+        fields = ['poster', 'title', 'description', 'genre', 'score']
         widgets = {
             'score': forms.NumberInput(attrs={
                 'min': 0,

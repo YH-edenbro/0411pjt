@@ -3,6 +3,7 @@ from django.conf import settings
 # Create your models here.
 class Movie(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    poster = models.ImageField(blank=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
     GENRE_CHOICES = [

@@ -12,7 +12,7 @@ def index(request):
 
 def create(request):
     if request.method == 'POST':
-        form = CreateForm(request.POST)
+        form = CreateForm(request.POST, request.FILES)
         if form.is_valid():
             movie = form.save(commit=False)
             movie.user = request.user

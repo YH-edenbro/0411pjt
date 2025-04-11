@@ -7,6 +7,9 @@
   <div class="col-md-4 mb-4">
     <div class="card">
       <div class="card-body">
+        {% if movie.poster %}
+        <img src="{{ movie.poster.url }}" alt="영화포스터" style="width: 100px; height: 150px; object-fit: cover;">
+        {% endif %}
         <h5 class="card-title">{{ movie.title }}</h5>
         <p class="card-text">{{ movie.description|truncatechars:100 }}</p>
         <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-primary"
