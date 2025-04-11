@@ -4,9 +4,18 @@ from .models import Movie
 
 
 # form1 (일반 Form 예시)
-class CreateForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
+class CreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Movie
+        fields = ['title', 'description', 'genre', 'score']
+        widgets = {
+            'score': forms.NumberInput(attrs={
+                'min': 0,
+                'max': 5,
+                'step': 0.5,
+            }),
+        }
 
 
 # form2 (ModelForm 예시)

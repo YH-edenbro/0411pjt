@@ -5,8 +5,20 @@ class Movie(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
-    genre = models.CharField(max_length=50)
+    GENRE_CHOICES = [
+        ('COME', 'Comedy'),
+        ('FANT', 'Fantasy'),
+        ('ROMA', 'Romance'),
+
+    ]
+    genre = models.CharField(
+        max_length=50,
+        choices=GENRE_CHOICES,
+        )
     score = models.FloatField()
+
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
