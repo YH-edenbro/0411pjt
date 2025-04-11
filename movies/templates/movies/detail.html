@@ -20,14 +20,16 @@
   <li>
     <strong>{{ comment.user.username }}</strong> - {{ comment.content }} 
     {% if request.user == comment.user %}
-    <form
-      action="{% url 'movies:comments_delete' movie.pk comment.pk %}"
-      method="POST"
-      style="display: inline"
-    >
-      {% csrf_token %}
-      <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
-    </form>
+      <div style="text-align: right;">
+        <form
+          action="{% url 'movies:comments_delete' movie.pk comment.pk %}"
+          method="POST"
+          style="display: inline"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+        </form>
+      </div>
   {% endif %}
   </li>
   {% endfor %}

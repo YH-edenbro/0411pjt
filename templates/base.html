@@ -14,7 +14,7 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">SSAFY</a>
+        <a class="navbar-brand" href="{% url 'movies:index' %}">SSAFY</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">INDEX</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">INDEX</a>
             </li>
 
             {% if user.is_authenticated %}
