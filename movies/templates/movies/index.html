@@ -1,23 +1,22 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<h1>INDEX PAGE</h1>
 
-{% block content %}
-  <h1>INDEX PAGE</h1>
-
-  {% if movies %}
-    <div class="row">
-      {% for movie in movies %}
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ movie.title }}</h5>
-              <p class="card-text">{{ movie.description|truncatechars:100 }}</p>
-              <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-primary">Detail</a>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
+{% if movies %}
+<div class="row">
+  {% for movie in movies %}
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">{{ movie.description|truncatechars:100 }}</p>
+        <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-primary"
+          >Detail</a
+        >
+      </div>
     </div>
-  {% else %}
-    <p>CREATE 해보세요</p>
-  {% endif %}
-{% endblock %}
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>CREATE 해보세요</p>
+{% endif %} {% endblock %}

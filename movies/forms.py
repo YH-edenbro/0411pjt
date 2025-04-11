@@ -16,24 +16,29 @@ class CreateForm(forms.ModelForm):
             }),
         }
 
-
-# form2 (ModelForm 예시)
-class ProductForm(forms.ModelForm):
-    CATEGORY_CHOICES = [
-        ('ELEC', 'Electronics'),
-        ('BOOK', 'Books'),
-        ('FASH', 'Fashion'),
-    ]
-    category = forms.MultipleChoiceField(
-        choices=CATEGORY_CHOICES,
-        required=False,
-        help_text='하나 이상의 카테고리를 선택하세요',
-        widget=forms.CheckboxSelectMultiple,  # 체크박스 형태로 랜더링
-    )
+class CommentForm(forms.ModelForm):
 
     class Meta:
-        model = Movie
-        fields = '__all__'
+        model = Comment
+        fields = ['content', ]
+        
+# # form2 (ModelForm 예시)
+# class ProductForm(forms.ModelForm):
+#     CATEGORY_CHOICES = [
+#         ('ELEC', 'Electronics'),
+#         ('BOOK', 'Books'),
+#         ('FASH', 'Fashion'),
+#     ]
+#     category = forms.MultipleChoiceField(
+#         choices=CATEGORY_CHOICES,
+#         required=False,
+#         help_text='하나 이상의 카테고리를 선택하세요',
+#         widget=forms.CheckboxSelectMultiple,  # 체크박스 형태로 랜더링
+#     )
+
+#     class Meta:
+#         model = Movie
+#         fields = '__all__'
 
 # # form2 (ModelForm 예시)
 # class ProductForm(forms.ModelForm):

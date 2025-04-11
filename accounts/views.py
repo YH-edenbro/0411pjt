@@ -23,7 +23,7 @@ def logout(request):
     return redirect('movies:index')
 
 def signup(request):
-    if request == 'POST':
+    if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()

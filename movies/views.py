@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Movie, Comment
-from .forms import CreateForm
+from .forms import CreateForm, CommentForm
 
 # Create your views here.
 def index(request):
@@ -16,6 +16,8 @@ def create(request):
         if form.is_valid():
             movie = form.save()
             return redirect('movies:detail', movie.pk)
+    else:
+        form = CreateForm()
     context = {
         'form':form
     }
@@ -23,10 +25,12 @@ def create(request):
 
 def detail(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
+    commeent_form = CommentForm()
     context = {
-        'movie':movie
+        'movie':movie,
+        'comment_form': commeent_form,
     }
-    return render(request, 'movies', context)
+    return render(request, 'movies/detail.html', context)
 
 def update(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
@@ -44,3 +48,6 @@ def delete(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     movie.delete()
     return redirect('movies:index')
+
+def comments_create(requst, pk):
+    movie = Movie.objects.get(pk=pk)
